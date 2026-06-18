@@ -1,0 +1,20 @@
+{
+  "name": "cowart",
+  "version": "0.1.0",
+  "description": "Open a local tldraw infinite canvas in Codex.",
+  "author": {
+    "name": "Local developer"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Cowart",
+    "shortDescription": "Open a tldraw infinite canvas in Codex.",
+    "longDescription": "Cowart provides a local web canvas powered by tldraw and a skill that opens it in the Codex in-app browser.",
+    "developerName": "Local developer",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Local web service"],
+    "defaultPrompt": [
+      "Open the Cowart canvas."
+    ]
+  }
+}
