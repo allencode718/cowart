@@ -499,17 +499,54 @@ function CowartToolbarItem({ toolId }) {
   return <TldrawUiMenuToolItem toolId={toolId} isSelected={isSelected} />
 }
 
+function CowartAnnotationToolbarItem() {
+  const editor = useEditor()
+  const isSelected = useValue(
+    'is annotation selected',
+    () => editor.getCurrentToolId() === ANNOTATION_TOOL_ID,
+    [editor]
+  )
+
+  return (
+    <button
+      aria-label={ANNOTATION_TOOL_LABEL}
+      aria-pressed={isSelected ? 'true' : 'false'}
+      className="tlui-button tlui-button__tool cowart-annotation-toolbar-button"
+      data-testid={`tools.${ANNOTATION_TOOL_ID}`}
+      data-value={ANNOTATION_TOOL_ID}
+      draggable={false}
+      onClick={() => {
+        unlockGlobalToolLock(editor)
+        editor.setCurrentTool(ANNOTATION_TOOL_ID)
+      }}
+      onTouchStart={(event) => {
+        event.preventDefault()
+        unlockGlobalToolLock(editor)
+        editor.setCurrentTool(ANNOTATION_TOOL_ID)
+      }}
+      title={ANNOTATION_TOOL_LABEL}
+      type="button"
+    >
+      {annotationToolIcon}
+      <span className="cowart-annotation-toolbar-label" draggable={false}>
+        {ANNOTATION_TOOL_LABEL}
+      </span>
+    </button>
+  )
+}
+
 function CowartToolbarDivider() {
   return <div aria-orientation="vertical" className="cowart-toolbar-divider" role="separator" />
 }
 
 function CowartToolbar(props) {
   return (
-    <DefaultToolbar {...props}>
+    <DefaultToolbar {...props} maxItems={9}>
+      <CowartAnnotationToolbarItem />
+      <CowartToolbarDivider />
       <SelectToolbarItem />
       <HandToolbarItem />
       <CowartToolbarItem toolId={AI_IMAGE_TOOL_ID} />
-      <CowartToolbarItem toolId={ANNOTATION_TOOL_ID} />
       <CowartToolbarDivider />
       <AssetToolbarItem />
       <DrawToolbarItem />
